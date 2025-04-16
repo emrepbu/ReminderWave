@@ -103,7 +103,7 @@ struct TaskListView: View {
                                 .padding(.top)
                         } else {
                             Text("No Completed Tasks")
-                                .font(.title2)s
+                                .font(.title2)
                                 .foregroundColor(.gray)
                                 .padding(.top)
                         }

@@ -33,6 +33,9 @@
         }
       }
     },
+    "Cancel" : {
+
+    },
     "Completed" : {
       "localizations" : {
         "en" : {
@@ -48,6 +51,15 @@
           }
         }
       }
+    },
+    "Date" : {
+
+    },
+    "Delete" : {
+
+    },
+    "Due Date" : {
+
     },
     "Enable Due Date" : {
       "localizations" : {
@@ -97,6 +109,9 @@
         }
       }
     },
+    "English" : {
+
+    },
     "Error" : {
       "localizations" : {
         "en" : {
@@ -109,54 +124,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hata"
-          }
-        }
-      }
-    },
-    "Failed to delete task" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to delete task"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Görev silinemedi"
-          }
-        }
-      }
-    },
-    "Failed to load tasks" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to load tasks"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Görevler yüklenemedi"
-          }
-        }
-      }
-    },
-    "Failed to update task" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to update task"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Görev güncellenemedi"
           }
         }
       }
@@ -209,6 +176,12 @@
         }
       }
     },
+    "Mark Complete" : {
+
+    },
+    "Mark Incomplete" : {
+
+    },
     "Medium" : {
       "localizations" : {
         "en" : {
@@ -224,6 +197,9 @@
           }
         }
       }
+    },
+    "New Task" : {
+
     },
     "No Active Tasks" : {
       "localizations" : {
@@ -256,6 +232,12 @@
           }
         }
       }
+    },
+    "No Tasks" : {
+
+    },
+    "Notes" : {
+
     },
     "Notifications Disabled" : {
       "localizations" : {
@@ -337,6 +319,9 @@
         }
       }
     },
+    "Save Task" : {
+
+    },
     "Save Task Button" : {
       "localizations" : {
         "en" : {
@@ -385,6 +370,15 @@
         }
       }
     },
+    "Set Due Date" : {
+
+    },
+    "Set Reminder" : {
+
+    },
+    "Set Time" : {
+
+    },
     "Settings" : {
       "localizations" : {
         "en" : {
@@ -400,6 +394,9 @@
           }
         }
       }
+    },
+    "Task Details" : {
+
     },
     "Task Notes" : {
       "localizations" : {
@@ -448,6 +445,18 @@
           }
         }
       }
+    },
+    "Tasks" : {
+
+    },
+    "Time" : {
+
+    },
+    "Title" : {
+
+    },
+    "Türkçe" : {
+
     }
   },
   "version" : "1.0"
