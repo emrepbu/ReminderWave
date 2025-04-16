@@ -16,12 +16,16 @@ protocol TaskServiceProtocol {
 }
 
 class SwiftDataTaskService: TaskServiceProtocol {
-    private let modelContext: ModelContext
+    private var modelContext: ModelContext
     
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
     
+    func updateModelContext(_ newContext: ModelContext) {
+        self.modelContext = newContext
+    }
+
     func fetchTasks() -> [Task] {
         do {
             let descriptor = FetchDescriptor<Task>(

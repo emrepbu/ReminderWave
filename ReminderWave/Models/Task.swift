@@ -16,23 +16,26 @@ final class Task {
     var isCompleted: Bool
     var hasDueDate: Bool
     var dueDate: Date
+    var hasTime: Bool
     var hasReminder: Bool
     
     init(
-        id: UUID = UUID(),
-        title: String,
-        notes: String,
-        isCompleted: Bool,
-        hasDueDate: Bool,
-        dueDate: Date,
-        hasReminder: Bool
-    ) {
-        self.id = id
-        self.title = title
-        self.notes = notes
-        self.isCompleted = isCompleted
-        self.hasDueDate = hasDueDate
-        self.dueDate = dueDate
-        self.hasReminder = hasReminder
-    }
+         id: UUID = UUID(),
+         title: String,
+         notes: String = "",
+         isCompleted: Bool = false,
+         hasDueDate: Bool = false,
+         dueDate: Date = Date(),
+         hasTime: Bool = false,
+         hasReminder: Bool = false
+     ) {
+         self.id = id
+         self.title = title
+         self.notes = notes
+         self.isCompleted = isCompleted
+         self.hasDueDate = hasDueDate
+         self.dueDate = dueDate
+         self.hasTime = hasTime
+         self.hasReminder = hasReminder
+     }
 }

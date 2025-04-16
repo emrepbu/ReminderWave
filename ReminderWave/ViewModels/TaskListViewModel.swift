@@ -16,8 +16,8 @@ class TaskListViewModel: ObservableObject {
     @Published var selectedLanguage: String = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "en"
     
     // MARK: - Services
-    private let taskService: TaskServiceProtocol
-    private let notificationService: NotificationServiceProtocol
+    let taskService: TaskServiceProtocol
+    let notificationService: NotificationServiceProtocol
     
     init(
         taskService: TaskServiceProtocol,
