@@ -26,7 +26,7 @@ class LocalNotificationService: NotificationServiceProtocol {
     
     func scheduleNotification(for task: Task) {
         let content = UNMutableNotificationContent()
-        content.title = String(localized: "Task Reminder")
+        content.title = "Task Reminder"
         content.body = task.title
         content.sound = UNNotificationSound.default
         
@@ -50,7 +50,6 @@ class LocalNotificationService: NotificationServiceProtocol {
         )
         
         UNUserNotificationCenter.current().add(request) { error in
-            
             if let error = error {
                 print("Error scheduling notification: \(error)")
             }

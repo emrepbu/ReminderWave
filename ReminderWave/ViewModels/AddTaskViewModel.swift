@@ -11,7 +11,6 @@ import Combine
 
 class AddTaskViewModel: ObservableObject {
     
-    // MARK: - Form State
     @Published var title = ""
     @Published var notes = ""
     @Published var isDateEnabled = false
@@ -19,10 +18,13 @@ class AddTaskViewModel: ObservableObject {
     @Published var isTimeEnabled = false
     @Published var wantReminder = false
     @Published var isReminderPermitted = false
+    @Published var priority: RWTaskPriority = .medium
+    @Published var showPermissionAlert = false
     
-    // MARK: - Services
     private let taskService: TaskServiceProtocol
     private let notificationService: NotificationServiceProtocol
+    
+    var onTaskSaved: (() -> Void)?
     
     init(
         taskService: TaskServiceProtocol,
@@ -39,10 +41,14 @@ class AddTaskViewModel: ObservableObject {
     func requestNotificationPermission() {
         notificationService.requestAuthorization { [weak self] success in
             guard let self = self else { return }
-            self.isReminderPermitted = success
             
-            if !success {
-                self.wantReminder = false
+            DispatchQueue.main.async {
+                self.isReminderPermitted = success
+                
+                if !success {
+                    self.wantReminder = false
+                    self.showPermissionAlert = true
+                }
             }
         }
     }
@@ -50,21 +56,43 @@ class AddTaskViewModel: ObservableObject {
     func saveTask() -> Bool {
         guard isFormValid else { return false }
         
-        let task = Task(
-            title: title,
-            notes: notes,
-            hasDueDate: isDateEnabled,
-            dueDate: dueDate,
-            hasTime: isTimeEnabled,
-            hasReminder: wantReminder && isTimeEnabled && isReminderPermitted
-        )
+        var taskSaved = true
         
-        taskService.addTask(task)
-        
-        if task.hasReminder {
-            notificationService.scheduleNotification(for: task)
+        do {
+            let task = Task(
+                title: title,
+                notes: notes,
+                isCompleted: false,
+                hasDueDate: isDateEnabled,
+                dueDate: dueDate,
+                hasTime: isTimeEnabled,
+                hasReminder: wantReminder && isTimeEnabled && isReminderPermitted,
+                priority: priority
+            )
+            
+            taskService.addTask(task)
+            
+            if task.hasReminder {
+                notificationService.scheduleNotification(for: task)
+            }
+
+            onTaskSaved?()
+            
+        } catch {
+            taskSaved = false
+            print("Error saving task: \(error)")
         }
         
-        return true
+        return taskSaved
+    }
+    
+    func resetForm() {
+        title = ""
+        notes = ""
+        isDateEnabled = false
+        dueDate = Date()
+        isTimeEnabled = false
+        wantReminder = false
+        priority = .medium
     }
 }

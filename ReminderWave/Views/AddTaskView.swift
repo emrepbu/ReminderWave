@@ -9,44 +9,52 @@ import SwiftUI
 import SwiftData
 
 struct AddTaskView: View {
-    
     @ObservedObject var viewModel: AddTaskViewModel
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text(String(localized: "Task Details"))) {
-                    TextField(String(localized: "Title"), text: $viewModel.title)
-                    TextField(String(localized: "Notes"), text: $viewModel.notes)
+                Section(header: Text("Task Details")) {
+                    TextField("Title", text: $viewModel.title)
+                        .accessibilityLabel("Task Title")
+                    
+                    TextField("Notes", text: $viewModel.notes)
+                        .accessibilityLabel("Task Notes")
                 }
                 
-                Section(header: Text(String(localized: "Due Date"))) {
+                Section(header: Text("Due Date")) {
                     Toggle(
-                        String(localized: "Set Due Date"),
+                        "Set Due Date",
                         isOn: $viewModel.isDateEnabled
                     )
+                    .accessibilityLabel("Enable Due Date")
                     
                     if viewModel.isDateEnabled {
                         DatePicker(
-                            String(localized: "Date"),
+                            "Date",
                             selection: $viewModel.dueDate,
                             displayedComponents: [.date]
                         )
+                        .accessibilityLabel("Select Date")
+                        .datePickerStyle(GraphicalDatePickerStyle())
                         
-                        Toggle(LocalizedStringKey("Set Time"), isOn: $viewModel.isTimeEnabled)
+                        Toggle("Set Time", isOn: $viewModel.isTimeEnabled)
+                            .accessibilityLabel("Enable Time")
                         
                         if viewModel.isTimeEnabled {
                             DatePicker(
-                                String(localized: "Time"),
+                                "Time",
                                 selection: $viewModel.dueDate,
                                 displayedComponents: [.hourAndMinute]
                             )
+                            .accessibilityLabel("Select Time")
                             
                             Toggle(
-                                String(localized: "Set Reminder"),
+                                "Set Reminder",
                                 isOn: $viewModel.wantReminder
                             )
+                            .accessibilityLabel("Enable Reminder")
                             .onChange(of: viewModel.wantReminder) { _, newValue in
                                 if newValue {
                                     viewModel.requestNotificationPermission()
@@ -54,6 +62,17 @@ struct AddTaskView: View {
                             }
                         }
                     }
+                }
+                
+                // Eklenen Öncelik Seçimi
+                Section(header: Text("Priority")) {
+                    Picker("Priority Level", selection: $viewModel.priority) {
+                        Text("Low").tag(RWTaskPriority.low)
+                        Text("Medium").tag(RWTaskPriority.medium)
+                        Text("High").tag(RWTaskPriority.high)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .accessibilityLabel("Task Priority")
                 }
                 
                 Section {
@@ -64,7 +83,7 @@ struct AddTaskView: View {
                     }) {
                         HStack {
                             Spacer()
-                            Text(String(localized: "Save Task"))
+                            Text("Save Task")
                                 .bold()
                                 .foregroundColor(.white)
                                 .padding()
@@ -76,15 +95,28 @@ struct AddTaskView: View {
                     .disabled(!viewModel.isFormValid)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
+                    .accessibilityLabel("Save Task Button")
                 }
             }
-            .navigationTitle(String(localized: "New Task"))
+            .navigationTitle("New Task")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(String(localized: "Cancel")) {
+                    Button("Cancel") {
                         dismiss()
                     }
                 }
+            }
+            .alert(isPresented: $viewModel.showPermissionAlert) {
+                Alert(
+                    title: Text("Notifications Disabled"),
+                    message: Text("Please enable notifications in settings to receive reminders for your tasks."),
+                    primaryButton: .default(Text("Settings")) {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
             }
         }
     }

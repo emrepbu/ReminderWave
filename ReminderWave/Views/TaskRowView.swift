@@ -11,6 +11,26 @@ struct TaskRowView: View {
     var task: Task
     var onToggleCompletion: () -> Void
     
+    private var dueDateColor: Color {
+        guard task.hasDueDate && !task.isCompleted else {
+            return task.isCompleted ? .gray : .primary
+        }
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: Date(), to: task.dueDate)
+        let daysRemaining = components.day ?? 0
+        
+        if daysRemaining < 0 {
+            return .red
+        } else if daysRemaining == 0 {
+            return .orange
+        } else if daysRemaining <= 2 {
+            return .yellow
+        } else {
+            return .blue
+        }
+    }
+    
     var body: some View {
         HStack {
             VStack(
@@ -32,19 +52,19 @@ struct TaskRowView: View {
                 if task.hasDueDate {
                     HStack {
                         Image(systemName: "calendar")
-                            .foregroundColor(.blue)
+                            .foregroundColor(dueDateColor)
                         
                         Text(task.dueDate, style: .date)
                             .font(.caption)
-                            .foregroundColor(.blue)
+                            .foregroundColor(dueDateColor)
                         
                         if task.hasTime {
                             Image(systemName: "clock")
-                                .foregroundColor(.blue)
+                                .foregroundColor(dueDateColor)
                             
                             Text(task.dueDate, style: .time)
                                 .font(.caption)
-                                .foregroundColor(.blue)
+                                .foregroundColor(dueDateColor)
                         }
                         
                         if task.hasReminder {
@@ -52,6 +72,10 @@ struct TaskRowView: View {
                                 .foregroundColor(.orange)
                                 .font(.caption)
                         }
+                        
+                        Circle()
+                            .fill(task.priority.color)
+                            .frame(width: 10, height: 10)
                     }
                 }
             }
@@ -79,6 +103,7 @@ struct TaskRowView: View {
                 }
         }
         .padding(.vertical, 8.0)
+        .contentShape(Rectangle())
     }
 }
 
@@ -90,7 +115,8 @@ struct TaskRowView: View {
         hasDueDate: true,
         dueDate: Date(),
         hasTime: true,
-        hasReminder: true
+        hasReminder: true,
+        priority: .medium
     )
     
     return TaskRowView(task: task) {}
@@ -105,7 +131,25 @@ struct TaskRowView: View {
         hasDueDate: true,
         dueDate: Date(),
         hasTime: false,
-        hasReminder: false
+        hasReminder: false,
+        priority: .low
+    )
+    
+    return TaskRowView(task: task) {}
+        .padding()
+}
+
+#Preview("Overdue Task") {
+    let overdueDate = Calendar.current.date(byAdding: .day, value: -2, to: Date())!
+    let task = Task(
+        title: "Complete tax report",
+        notes: "Deadline missed",
+        isCompleted: false,
+        hasDueDate: true,
+        dueDate: overdueDate,
+        hasTime: true,
+        hasReminder: true,
+        priority: .high
     )
     
     return TaskRowView(task: task) {}
