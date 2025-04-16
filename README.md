@@ -1,4 +1,4 @@
-# ReminderWave - Modern iOS To-Do Application
+# ReminderWave - iOS To-Do Application
 
 ![Status](https://img.shields.io/badge/Status-Development-yellow)
 ![Purpose](https://img.shields.io/badge/Purpose-Educational-blue)
