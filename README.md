@@ -5,6 +5,7 @@
 
 ## Overview
 <img src="https://github.com/user-attachments/assets/c0e53aa0-ecd2-4964-8495-10b5a14ce615" width="200"/>
+
 ReminderWave is a modern task reminder and management application developed using SwiftUI and Swift Data. Following the MVVM architecture, this app allows users to organize their tasks, categorize them by priority, and receive reminders when due.
 
 The application is built with modern iOS technologies and includes features such as multilingual support (English and Turkish), persistent data storage, local notifications, and filtering options.
