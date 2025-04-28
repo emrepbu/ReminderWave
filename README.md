@@ -98,6 +98,7 @@ Future developments planned for the project:
 - [ ] **Theme Support**: Light/dark and custom themes
 - [ ] **Comprehensive Tests**: Unit tests and UI tests
 - [ ] **Sharing Features**: Share tasks with other apps or people
+- [ ] iOS Live Activities: Real-time notifications on the Lock Screen, in Dynamic Island, and as interactive notifications on the device screen
 
 ## Technical Details
 
