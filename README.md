@@ -109,6 +109,30 @@ Future developments planned for the project:
 - **Dependency Injection**: Manual DI approach
 - **Modularity**: Modular design for easy extensibility
 
+## Build and Deploy
+
+This project uses GitHub Actions for automated builds and releases. The workflow is triggered when a new tag (v*) is pushed to the repository.
+
+### Build Process
+1. The workflow uses Xcode 15.0 to build the application
+2. Creates an archive of the app
+3. Exports the app as an IPA file
+
+### Release Process
+1. Automatically creates a new release on GitHub
+2. Attaches the IPA file to the release
+3. Includes build information in the release notes
+
+To create a new release:
+```bash
+git tag -a v1.0.0 -m "Release 1.0.0"
+git push origin v1.0.0
+```
+
+### Requirements for Build
+- A valid Apple Developer Team ID (configured in `exportOptions.plist`)
+- GitHub Personal Access Token with appropriate permissions
+
 ## Contributing
 
 Contributions are welcome! To add new features, fix bugs, or make improvements, follow these steps:
