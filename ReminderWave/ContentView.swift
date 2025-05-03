@@ -14,12 +14,8 @@ struct ContentView: View {
     
     init() {
         let notificationService = LocalNotificationService()
-        
-        let tempContainer = try! ModelContainer(for: Task.self)
-        let tempContext = ModelContext(tempContainer)
-        
         _viewModel = StateObject(wrappedValue: TaskListViewModel(
-            taskService: SwiftDataTaskService(modelContext: tempContext),
+            taskService: SwiftDataTaskService(modelContext: modelContext),
             notificationService: notificationService
         ))
     }

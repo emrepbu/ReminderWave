@@ -33,7 +33,7 @@ struct TaskListView: View {
                     
                     if #available(iOS 17.0, *) {
                         List {
-                            ForEach(viewModel.filteredTasks.sorted(by: { $0.dueDate < $1.dueDate })) { task in
+                            ForEach(viewModel.filteredTasks.sorted(by: { $0.dueDate < $1.dueDate }), id: \.id) { task in
                                 TaskRowView(task: task) {
                                     viewModel.toggleTaskCompletion(task)
                                 }
